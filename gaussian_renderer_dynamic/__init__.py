@@ -34,7 +34,6 @@ def getWorld2View2(R, t, translate=np.array([.0, .0, .0]), scale=1.0):
 world_view_transform = torch.tensor(getWorld2View2(R_fixed, T_fixed, np.array([0.0, 0.0, 0.0]), 1.0)).transpose(0, 1)
 
 def getOrthProjectionMatrix():
-    # znear, zfar = 0., 1.0
     znear, zfar = 0., 10.0
     top = 1
     bottom = -top
@@ -109,10 +108,7 @@ def render(gaussians: dict, bg_color: torch.Tensor, timestamps: torch.Tensor = N
     rasterizer = GaussianRasterizerOrth(raster_settings=raster_settings)
     render_images = []
     render_depths = []
-    final_means = []
-    final_opacities = []
     render_alphas = []
-    gs_tracks = []
 
     dummy_time = torch.zeros(1, device=gaussians['xyz'].device)
     output_frames = opt.output_frames

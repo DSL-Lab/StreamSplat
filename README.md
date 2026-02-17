@@ -1,4 +1,4 @@
-# StreamSplat: Towards Online Dynamic 3D Reconstruction from Uncalibrated Video Streams
+# [ICLR 2026] StreamSplat: Towards Online Dynamic 3D Reconstruction from Uncalibrated Video Streams
 
 <a href="https://arxiv.org/abs/2506.08862"><img src="https://img.shields.io/badge/arXiv-2506.08862-b31b1b" alt="arXiv"></a>
 
@@ -110,7 +110,7 @@ accelerate launch --config_file acc_configs/gpu8.yaml train.py combined \
 After Stage 1 completes, train the dynamic decoder with the frozen encoder:
 
 ```bash
-accelerate launch --config_file acc_configs/gpu8.yaml train_decoder.py combined_rcvd \
+accelerate launch --config_file acc_configs/gpu8.yaml train_decoder.py combined \
     --workspace /path/to/workspace/decoder_exp \
     --encoder_path /path/to/workspace/encoder_exp/model.safetensors
 ```
@@ -124,6 +124,18 @@ wandb login
 ```
 
 Checkpoints are saved every 10 epochs and every 30 minutes to `checkpoint_latest/`.
+
+
+## Inference
+
+Download our pretrained checkpoint at [Google Drive](https://drive.google.com/drive/folders/1miH90t-hTwxfv0lc876_x1Xc7ZkoOFCY?usp=share_link) and place it in the `checkpoints/` directory:
+
+```bash
+python splat_inference.py \
+    --resume checkpoints/streamsplat.safetensors \
+    --input_frames_path=/path/to/rgb_frames \
+    --input_depths_path=/path/to/depth_maps 
+```
 
 
 ## Citation

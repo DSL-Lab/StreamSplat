@@ -6,11 +6,17 @@ from configs.options import Options as BaseOptions
 encoder_path: str = "PATH_TO_ENCODER_CHECKPOINT"
 
 # specify the root path for each dataset here
-root_path_re10k: str = "PATH_TO_RE10K"
-root_path_co3d: str = "PATH_TO_CO3D"
-root_path_davis: str = "PATH_TO_DAVIS"
-root_path_vos: str = "PATH_TO_Youtube-VOS"
-root_path_combined: str = "combined"             # placeholder without any dataset
+# root_path_re10k: str = "PATH_TO_RE10K"
+# root_path_co3d: str = "PATH_TO_CO3D"
+# root_path_davis: str = "PATH_TO_DAVIS"
+# root_path_vos: str = "PATH_TO_Youtube-VOS"
+# root_path_combined: str = "combined"             # placeholder without any dataset
+
+root_path_re10k: str = "/data/datasets/re10k_subset"
+root_path_co3d: str = "/data/datasets/co3d"
+root_path_davis: str = "/data/datasets/DAVIS"
+root_path_vos: str = "/data/datasets/Youtube-VOS"
+root_path_combined: str = "/data/datasets/combined" 
 
 @dataclass
 class Options(BaseOptions):
@@ -50,12 +56,15 @@ class Options(BaseOptions):
     patch_size: int = 8
     decoder_num_layers: int = 10
     decoder_hidden_dim: int = 768
-    decoder_ratio: float = 3.0
+    decoder_ratio: float = 2.0
     opacity_activation: str = "sigmoid"
     use_augmentation: bool = True
     
     # Probabilistic sampling
     use_pm: bool = True
+    fix_keys: List[str] = field(default_factory=lambda: ["rot_static", "rot_dynamic"])
+    sample_keys: List[str] = field(default_factory=lambda: ["xyz_dynamic"])
+    pred_keys: List[str] = field(default_factory=lambda: ["rgb", "opacity", "scale", "xyz_static"])
     
     # Decoder-specific training
     encoder_path: str = ""
@@ -73,7 +82,10 @@ class Options(BaseOptions):
 config_defaults: Dict[str, Options] = {}
 config_doc: Dict[str, str] = {}
 
-config_doc['combined'] = ''
-config_defaults['combined_rcvd'] = Options(root_path=root_path_combined, re10k_path=root_path_re10k, co3d_path=root_path_co3d, davis_path=root_path_davis, vos_path=root_path_vos)
+config_doc['davis'] = 'davis dataset'
+config_defaults['davis'] = Options(root_path=root_path_davis)
+
+config_doc['combined'] = 'combined dataset'
+config_defaults['combined'] = Options(root_path=root_path_combined, re10k_path=root_path_re10k, co3d_path=root_path_co3d, davis_path=root_path_davis, vos_path=root_path_vos)
 
 AllConfigs = tyro.extras.subcommand_type_from_defaults(config_defaults, config_doc)

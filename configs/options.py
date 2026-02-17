@@ -91,7 +91,10 @@ class Options:
 config_defaults: Dict[str, Options] = {}
 config_doc: Dict[str, str] = {}
 
-config_doc['combined'] = ''
+config_doc['davis'] = 'davis dataset'
+config_defaults['davis'] = Options(root_path=root_path_davis)
+
+config_doc['combined'] = 'combined dataset'
 config_defaults['combined'] = Options(root_path=root_path_combined, re10k_path=root_path_re10k, co3d_path=root_path_co3d, davis_path=root_path_davis, vos_path=root_path_vos)
 
 AllConfigs = tyro.extras.subcommand_type_from_defaults(config_defaults, config_doc)

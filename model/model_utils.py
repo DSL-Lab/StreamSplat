@@ -32,7 +32,7 @@ from model.depth_wrapper import DepthAnythingWrapper
 
 from model.mixture_model_utils import Truncated_Gaussian_Model
 
-from model.transformer_utils import TransformerEncoder, GaussianUpsampler, TransformerConditionalDecoder, MLP, GaussianDownsampler, TransformerDecoder
+from model.transformer_utils import TransformerEncoder, GaussianUpsampler, TransformerConditionalDecoder, MLP
 
         
 def _count_params(module):
