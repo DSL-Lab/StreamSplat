@@ -106,10 +106,10 @@ def main():
             print(f"Resume file {opt.resume} not found")
     
     if accelerator.is_main_process:
-        print(f"Loading model from {opt.nutshell_path}")
+        print(f"Loading model from {opt.encoder_path}")
 
     if_compile_model = opt.compile
-    state_dict = load_file(opt.nutshell_path)
+    state_dict = load_file(opt.encoder_path)
     new_state_dict = OrderedDict()
     for k, v in state_dict.items():
         if "dynamic" in k:

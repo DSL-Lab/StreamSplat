@@ -3,20 +3,12 @@ from dataclasses import dataclass, field
 from typing import Literal, Dict, Optional, List
 from configs.options import Options as BaseOptions
 
-encoder_path: str = "PATH_TO_ENCODER_CHECKPOINT"
-
 # specify the root path for each dataset here
-# root_path_re10k: str = "PATH_TO_RE10K"
-# root_path_co3d: str = "PATH_TO_CO3D"
-# root_path_davis: str = "PATH_TO_DAVIS"
-# root_path_vos: str = "PATH_TO_Youtube-VOS"
-# root_path_combined: str = "combined"             # placeholder without any dataset
-
-root_path_re10k: str = "/data/datasets/re10k_subset"
-root_path_co3d: str = "/data/datasets/co3d"
-root_path_davis: str = "/data/datasets/DAVIS"
-root_path_vos: str = "/data/datasets/Youtube-VOS"
-root_path_combined: str = "/data/datasets/combined" 
+root_path_re10k: str = "PATH_TO_RE10K"
+root_path_co3d: str = "PATH_TO_CO3D"
+root_path_davis: str = "PATH_TO_DAVIS"
+root_path_vos: str = "PATH_TO_Youtube-VOS"
+root_path_combined: str = "combined"             # placeholder without any dataset
 
 @dataclass
 class Options(BaseOptions):
@@ -33,6 +25,7 @@ class Options(BaseOptions):
     batch_size: int = 16
     num_workers: int = 8
     resume: Optional[str] = None
+    encoder_path: str = "PATH_TO_ENCODER_CHECKPOINT"
 
     lr: float = 5e-4
     enable_depth: bool = True 
