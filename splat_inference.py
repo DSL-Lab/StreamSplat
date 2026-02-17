@@ -61,6 +61,9 @@ def load_model_weights(model, decoder_path, device, compile=False):
         for k, v in state_dict_dec.items():
             if "_orig_mod." in k and not compile:
                 k = k.replace('_orig_mod.', '')
+            if "_orig_mod." not in k and compile:
+                # add _orig_mod. for all keys if using compiled model
+                k = k.replace("model.", "model._orig_mod.", 1)
             new_state_dict_dec[k] = v
         model.load_state_dict(new_state_dict_dec, strict=False)
     else:
